@@ -24,10 +24,10 @@
 
 #if canImport(UIKit)
 import UIKit
-public typealias Color = UIColor
+public typealias RColor = UIColor
 #else
 import Cocoa
-public typealias Color = NSColor
+public typealias RColor = NSColor
 #endif
 
 private var colorDictionary: [Hue: ColorDefinition] = [
@@ -65,7 +65,7 @@ Generate a single random color with some conditions.
 
 - returns: A random color following input conditions. It will be a `UIColor` object for iOS target, and an `NSColor` object for OSX target.
 */
-public func randomColor(hue: Hue = .random, luminosity: Luminosity = .random) -> Color {
+public func randomColor(hue: Hue = .random, luminosity: Luminosity = .random) -> RColor {
     
     func random(in range: Range) -> Int {
         assert(range.max >= range.min, "Max in range should be greater than min")
@@ -178,12 +178,12 @@ public func randomColor(hue: Hue = .random, luminosity: Luminosity = .random) ->
     let brightnessValue = pickBrightness(color: color, saturationValue: saturationValue, luminosity: luminosity)
     
     #if canImport(UIKit)
-    return Color(hue: CGFloat(hueValue) / 360.0,
+    return RColor(hue: CGFloat(hueValue) / 360.0,
             saturation: CGFloat(saturationValue) / 100.0,
             brightness: CGFloat(brightnessValue) / 100.0,
                  alpha: 1.0)
     #else
-    return Color(deviceHue: CGFloat(hueValue) / 360.0,
+    return RColor(deviceHue: CGFloat(hueValue) / 360.0,
                 saturation: CGFloat(saturationValue) / 100.0,
                 brightness: CGFloat(brightnessValue) / 100.0,
                      alpha: 1.0)
@@ -199,8 +199,8 @@ Generate a set of random colors with some conditions.
 
 - returns: An array of random colors following input conditions. The elements will be `UIColor` objects for iOS target, and `NSColor` objects for OSX target.
 */
-public func randomColors(count: Int, hue: Hue = .random, luminosity: Luminosity = .random) -> [Color] {
-    var colors: [Color] = []
+public func randomColors(count: Int, hue: Hue = .random, luminosity: Luminosity = .random) -> [RColor] {
+    var colors: [RColor] = []
     while (colors.count < count) {
         colors.append(randomColor(hue: hue, luminosity: luminosity))
     }
